@@ -1,0 +1,521 @@
+/* ===========================================
+   SANTA ROSA MALHAS
+   CONSULTA DE ESTOQUE
+=========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --azul:#0b5ed7;
+    --azul2:#1d74ff;
+    --azul3:#0a3d91;
+
+    --cinza:#6b7280;
+
+    --verde:#1ca64c;
+
+    --vermelho:#dc3545;
+
+    --amarelo:#ffc107;
+
+    --branco:#ffffff;
+
+    --fundo:#eef4fb;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:var(--fundo);
+
+    overflow-x:hidden;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+    position:relative;
+
+}
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left,#1976ff40,transparent 35%),
+    radial-gradient(circle at bottom right,#0b5ed730,transparent 30%),
+    linear-gradient(135deg,#eef5ff,#dcecff);
+
+    z-index:-2;
+
+}
+
+.container{
+
+    width:100%;
+
+    max-width:700px;
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:45px;
+
+    box-shadow:
+
+    0 20px 60px rgba(0,0,0,.12);
+
+    animation:fade .5s;
+
+}
+
+.logo-area{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo{
+
+    width:180px;
+
+    max-width:90%;
+
+    margin-bottom:25px;
+
+}
+
+.logo-area h1{
+
+    color:var(--azul3);
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.logo-area p{
+
+    color:var(--cinza);
+
+    margin-top:10px;
+
+    line-height:1.6;
+
+}
+
+.search-box{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.input-area{
+
+    flex:1;
+
+    display:flex;
+
+    align-items:center;
+
+    background:#f6f9fd;
+
+    border:2px solid transparent;
+
+    border-radius:14px;
+
+    transition:.25s;
+
+    overflow:hidden;
+
+}
+
+.input-area:focus-within{
+
+    border-color:var(--azul2);
+
+    background:white;
+
+}
+
+.input-area i{
+
+    width:55px;
+
+    text-align:center;
+
+    color:var(--azul);
+
+    font-size:20px;
+
+}
+
+.input-area input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    font-size:17px;
+
+    padding:18px 15px 18px 0;
+
+    font-family:Poppins;
+
+}
+
+button{
+
+    border:none;
+
+    background:linear-gradient(135deg,var(--azul2),var(--azul));
+
+    color:white;
+
+    padding:18px 35px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 30px rgba(0,91,214,.35);
+
+}
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+.loading{
+
+    margin-top:35px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+}
+
+.spinner{
+
+    width:35px;
+
+    height:35px;
+
+    border-radius:50%;
+
+    border:4px solid #d9e7ff;
+
+    border-top:4px solid var(--azul);
+
+    animation:girar .8s linear infinite;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+.resultado{
+
+    margin-top:35px;
+
+    animation:fade .3s;
+
+}
+
+.card-produto{
+
+    background:white;
+
+    border-radius:18px;
+
+    border-left:8px solid var(--azul);
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+}
+
+.status{
+
+    background:linear-gradient(135deg,var(--azul),var(--azul2));
+
+    color:white;
+
+    padding:18px 25px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:17px;
+
+}
+
+.linha{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px 25px;
+
+    border-bottom:1px solid #edf0f5;
+
+}
+
+.linha:last-child{
+
+    border-bottom:none;
+
+}
+
+.linha span{
+
+    color:var(--cinza);
+
+    font-weight:500;
+
+}
+
+.linha strong{
+
+    color:#1e293b;
+
+    font-size:18px;
+
+}
+
+.estoque-status{
+
+    padding:22px;
+
+    text-align:center;
+
+    font-weight:700;
+
+    font-size:18px;
+
+}
+
+.status-verde{
+
+    color:var(--verde);
+
+}
+
+.status-amarelo{
+
+    color:#d99b00;
+
+}
+
+.status-vermelho{
+
+    color:var(--vermelho);
+
+}
+
+.nao-encontrado{
+
+    margin-top:40px;
+
+    text-align:center;
+
+    background:#fff5f5;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    animation:fade .3s;
+
+}
+
+.nao-encontrado i{
+
+    font-size:70px;
+
+    color:var(--vermelho);
+
+    margin-bottom:18px;
+
+}
+
+.nao-encontrado h2{
+
+    color:var(--vermelho);
+
+    margin-bottom:10px;
+
+}
+
+.nao-encontrado p{
+
+    color:#666;
+
+}
+
+footer{
+
+    position:fixed;
+
+    bottom:15px;
+
+    color:#7d8795;
+
+    font-size:14px;
+
+}
+
+@keyframes girar{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    body{
+
+        padding:15px;
+
+    }
+
+    .container{
+
+        padding:25px;
+
+    }
+
+    .search-box{
+
+        flex-direction:column;
+
+    }
+
+    button{
+
+        width:100%;
+
+        justify-content:center;
+
+    }
+
+    .linha{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:8px;
+
+    }
+
+    .logo{
+
+        width:140px;
+
+    }
+
+    .logo-area h1{
+
+        font-size:28px;
+
+    }
+
+}
