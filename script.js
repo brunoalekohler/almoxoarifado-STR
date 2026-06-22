@@ -4,7 +4,7 @@
 // =====================================
 
 // URL da API do Google Apps Script
-const API_URL = "https://script.google.com/macros/s/AKfycbx3UHWC6iOF3xUzACwU-PON-SNHLwsKs318-Ql7fZugT3qaGICninYmhYPFOMAXEpSX/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxI6b7WdLrqDSWbwjP_kj7rqo0Nlpr-ZTPSryXGJO_JHGcEz88qks4g3rWLCWZdDT3h/exec";
 
 const codigo = document.getElementById("codigo");
 const btnPesquisar = document.getElementById("btnPesquisar");
