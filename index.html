@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Rosa Malhas | Consulta de Estoque</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <link rel="icon" href="logo.png">
+</head>
+
+<body>
+
+    <!-- Fundo -->
+    <div class="background"></div>
+
+    <!-- Card principal -->
+    <main class="container">
+
+        <div class="logo-area">
+            <img src="logo.png" alt="Santa Rosa Malhas" class="logo">
+
+            <h1>Consulta de Estoque</h1>
+
+            <p>
+                Digite abaixo o código do produto para consultar o estoque em tempo real.
+            </p>
+        </div>
+
+        <div class="search-box">
+
+            <div class="input-area">
+
+                <i class="fa-solid fa-barcode"></i>
+
+                <input
+                    type="text"
+                    id="codigo"
+                    placeholder="Digite o ID do Produto"
+                    autocomplete="off"
+                    autofocus>
+
+            </div>
+
+            <button id="btnPesquisar">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Pesquisar
+
+            </button>
+
+        </div>
+
+        <!-- Loading -->
+
+        <div id="loading" class="loading hidden">
+
+            <div class="spinner"></div>
+
+            <span>Consultando estoque...</span>
+
+        </div>
+
+        <!-- Resultado -->
+
+        <section id="resultado" class="resultado hidden">
+
+            <div class="card-produto">
+
+                <div class="status">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Produto Encontrado
+
+                </div>
+
+                <div class="linha">
+
+                    <span>ID</span>
+
+                    <strong id="resId"></strong>
+
+                </div>
+
+                <div class="linha">
+
+                    <span>Nome do Produto</span>
+
+                    <strong id="resNome"></strong>
+
+                </div>
+
+                <div class="linha">
+
+                    <span>Quantidade em Estoque</span>
+
+                    <strong id="resQtd"></strong>
+
+                </div>
+
+                <div id="estoqueStatus" class="estoque-status"></div>
+
+            </div>
+
+        </section>
+
+        <!-- Produto não encontrado -->
+
+        <section id="naoEncontrado" class="nao-encontrado hidden">
+
+            <i class="fa-solid fa-circle-xmark"></i>
+
+            <h2>Produto não encontrado</h2>
+
+            <p>
+
+                Nenhum produto foi localizado com esse código.
+
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        © <span id="ano"></span> Santa Rosa Malhas
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
