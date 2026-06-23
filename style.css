@@ -524,27 +524,40 @@ footer{
 
     justify-content:center;
 
-    margin:25px 0;
+    align-items:center;
+
+    padding:25px;
+
+    background:#f7f9fc;
+
+    border-bottom:1px solid #e8edf5;
 
 }
 
 .fotoProduto img{
 
-    width:min(100%, 340px);
+    width:220px;
 
-    aspect-ratio:1;
+    height:220px;
 
-    object-fit:cover;
-
-    border-radius:18px;
-
-    border:1px solid #e6e6e6;
+    object-fit:contain;
 
     background:#fff;
 
-    padding:8px;
+    border-radius:14px;
 
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.08);
+    border:1px solid #dfe5ec;
+
+    padding:10px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.25s;
+
+}
+
+.fotoProduto img:hover{
+
+    transform:scale(1.03);
 
 }
