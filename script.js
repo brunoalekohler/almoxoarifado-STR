@@ -4,7 +4,7 @@
 // =====================================
 
 // URL da API do Google Apps Script
-const API_URL = "https://script.google.com/macros/s/AKfycbzshyPcF9clK7hSu8brI4RYoKQMeDaYGBgVR47mV_Kffurh7KrG8nnGaqO51A3ix6YQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzdBPzHNuIYG_5MYaicawoaVHpp1xj9Z9aHqPUvj5ouPCa5VfbU7Pe94IIrXdO89-k/exec";
 
 const codigo = document.getElementById("codigo");
 const btnPesquisar = document.getElementById("btnPesquisar");
@@ -19,8 +19,10 @@ const resNome = document.getElementById("resNome");
 const resQtd = document.getElementById("resQtd");
 
 const estoqueStatus = document.getElementById("estoqueStatus");
+const fotoProduto = document.getElementById("fotoProduto");
 
-document.getElementById("ano").innerHTML = new Date().getFullYear();
+document.getElementById("ano").textContent =
+new Date().getFullYear();
 
 btnPesquisar.addEventListener("click", pesquisar);
 
@@ -36,11 +38,11 @@ codigo.addEventListener("keypress", function(e){
 
 async function pesquisar(){
 
-    let id = codigo.value.trim();
+    const id = codigo.value.trim();
 
     if(id === ""){
 
-        alert("Digite o código do produto.");
+        alert("Digite o ID do produto.");
 
         codigo.focus();
 
@@ -48,77 +50,66 @@ async function pesquisar(){
 
     }
 
-    mostrarLoading();
+    resultado.classList.add("hidden");
+    naoEncontrado.classList.add("hidden");
+    loading.classList.remove("hidden");
 
     try{
 
         const resposta = await fetch(
+
             `${API_URL}?id=${encodeURIComponent(id)}`
+
         );
 
-        const dados = await resposta.json();
+        const produto = await resposta.json();
 
-        esconderLoading();
+        loading.classList.add("hidden");
 
-        if(dados.encontrado){
+        if(!produto.encontrado){
 
-            mostrarProduto(dados);
+            naoEncontrado.classList.remove("hidden");
 
-        }else{
-
-            mostrarNaoEncontrado();
+            return;
 
         }
 
-    }catch(e){
+        mostrarProduto(produto);
 
-        esconderLoading();
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+        loading.classList.add("hidden");
 
         alert("Erro ao consultar a planilha.");
-
-        console.error(e);
 
     }
 
 }
 
-function mostrarLoading(){
-
-    loading.classList.remove("hidden");
-
-    resultado.classList.add("hidden");
-
-    naoEncontrado.classList.add("hidden");
-
-}
-
-function esconderLoading(){
-
-    loading.classList.add("hidden");
-
-}
-
-function mostrarNaoEncontrado(){
-
-    resultado.classList.add("hidden");
-
-    naoEncontrado.classList.remove("hidden");
-
-}
-
 function mostrarProduto(produto){
-
-    naoEncontrado.classList.add("hidden");
 
     resultado.classList.remove("hidden");
 
-    resId.innerHTML = produto.id;
+    resId.textContent = produto.id;
 
-    resNome.innerHTML = produto.nome;
+    resNome.textContent = produto.nome;
 
-    resQtd.innerHTML = produto.quantidade;
+    resQtd.textContent = produto.quantidade;
 
-    atualizarStatus(produto.quantidade);
+    fotoProduto.src = produto.imagem;
+
+    fotoProduto.onerror = function(){
+
+        this.src =
+        "https://placehold.co/500x500?text=Sem+Imagem";
+
+    };
+
+        atualizarStatus(produto.quantidade);
 
 }
 
@@ -126,13 +117,18 @@ function atualizarStatus(qtd){
 
     qtd = Number(qtd);
 
+    estoqueStatus.classList.remove(
+        "status-verde",
+        "status-amarelo",
+        "status-vermelho"
+    );
+
     if(qtd <= 0){
+
+        estoqueStatus.classList.add("status-vermelho");
 
         estoqueStatus.innerHTML =
         "🔴 Produto sem estoque";
-
-        estoqueStatus.className =
-        "estoque-status status-vermelho";
 
         return;
 
@@ -140,20 +136,32 @@ function atualizarStatus(qtd){
 
     if(qtd <= 20){
 
+        estoqueStatus.classList.add("status-amarelo");
+
         estoqueStatus.innerHTML =
         "🟡 Estoque baixo";
-
-        estoqueStatus.className =
-        "estoque-status status-amarelo";
 
         return;
 
     }
 
+    estoqueStatus.classList.add("status-verde");
+
     estoqueStatus.innerHTML =
     "🟢 Produto disponível";
 
-    estoqueStatus.className =
-    "estoque-status status-verde";
-
 }
+
+// Coloca o cursor no campo ao abrir a página
+window.addEventListener("load", () => {
+
+    codigo.focus();
+
+});
+
+// Seleciona todo o conteúdo ao clicar no campo
+codigo.addEventListener("focus", () => {
+
+    codigo.select();
+
+});
