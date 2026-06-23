@@ -571,3 +571,39 @@ footer{
     transform:scale(1.03);
 
 }
+
+.btnLeitor{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:15px;
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#0b5ed7;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.btnLeitor:hover{
+
+    background:#094db2;
+
+}
