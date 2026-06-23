@@ -7,6 +7,21 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzdBPzHNuIYG_5MYaicawoaVHpp1xj9Z9aHqPUvj5ouPCa5VfbU7Pe94IIrXdO89-k/exec";
 
 const codigo = document.getElementById("codigo");
+const parametros = new URLSearchParams(window.location.search);
+
+const idURL = parametros.get("id");
+
+if (idURL) {
+
+    codigo.value = idURL;
+
+    window.addEventListener("load", () => {
+
+        pesquisar();
+
+    });
+
+}
 const btnPesquisar = document.getElementById("btnPesquisar");
 
 const loading = document.getElementById("loading");
