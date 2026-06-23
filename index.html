@@ -2,41 +2,49 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Santa Rosa Malhas | Consulta de Estoque</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Ícones -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
     <link rel="icon" href="logo.png">
+
 </head>
 
 <body>
 
-    <!-- Fundo -->
     <div class="background"></div>
 
-    <!-- Card principal -->
     <main class="container">
 
         <div class="logo-area">
-            <img src="logo.png" alt="Santa Rosa Malhas" class="logo">
+
+            <img src="logo.png"
+                class="logo"
+                alt="Santa Rosa Malhas">
 
             <h1>Consulta de Estoque</h1>
 
             <p>
-                Digite abaixo o código do produto para consultar o estoque em tempo real.
+
+                Digite o código do produto para consultar o estoque.
+
             </p>
+
         </div>
 
         <div class="search-box">
@@ -46,8 +54,8 @@
                 <i class="fa-solid fa-barcode"></i>
 
                 <input
-                    type="text"
                     id="codigo"
+                    type="text"
                     placeholder="Digite o ID do Produto"
                     autocomplete="off"
                     autofocus>
@@ -64,19 +72,23 @@
 
         </div>
 
-        <!-- Loading -->
-
-        <div id="loading" class="loading hidden">
+        <div
+            id="loading"
+            class="loading hidden">
 
             <div class="spinner"></div>
 
-            <span>Consultando estoque...</span>
+            <span>
+
+                Consultando estoque...
+
+            </span>
 
         </div>
 
-        <!-- Resultado -->
-
-        <section id="resultado" class="resultado hidden">
+        <section
+            id="resultado"
+            class="resultado hidden">
 
             <div class="card-produto">
 
@@ -85,6 +97,15 @@
                     <i class="fa-solid fa-circle-check"></i>
 
                     Produto Encontrado
+
+                </div>
+
+                <div class="fotoProduto">
+
+                    <img
+                        id="fotoProduto"
+                        src=""
+                        alt="Imagem do Produto">
 
                 </div>
 
@@ -112,19 +133,26 @@
 
                 </div>
 
-                <div id="estoqueStatus" class="estoque-status"></div>
+                <div
+                    id="estoqueStatus"
+                    class="estoque-status">
 
-            </div>
+                </div>
+                            </div>
 
         </section>
 
-        <!-- Produto não encontrado -->
-
-        <section id="naoEncontrado" class="nao-encontrado hidden">
+        <section
+            id="naoEncontrado"
+            class="nao-encontrado hidden">
 
             <i class="fa-solid fa-circle-xmark"></i>
 
-            <h2>Produto não encontrado</h2>
+            <h2>
+
+                Produto não encontrado
+
+            </h2>
 
             <p>
 
