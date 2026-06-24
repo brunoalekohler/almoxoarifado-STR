@@ -322,6 +322,13 @@ try{
 
 }
 
+btnRegistrar.disabled = false;
+
+btnRegistrar.innerHTML =
+'<i class="fa-solid fa-floppy-disk"></i> Registrar Movimentação';
+
+}
+
 // ===========================================
 // LIMPAR FORMULÁRIO
 // ===========================================
@@ -403,4 +410,4 @@ cpf.addEventListener("input",()=>{
 
     cpf.value = valor;
 
-};
+});
