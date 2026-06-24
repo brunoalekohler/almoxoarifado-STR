@@ -211,3 +211,14 @@ codigo.addEventListener("keydown",(e)=>{
     }
 
 });
+
+
+// ===========================================
+// FOCAR O CAMPO AO ABRIR
+// ===========================================
+
+window.onload=()=>{
+
+    codigo.focus();
+
+}
