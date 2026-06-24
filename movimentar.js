@@ -403,4 +403,4 @@ cpf.addEventListener("input",()=>{
 
     cpf.value = valor;
 
-});
+};
