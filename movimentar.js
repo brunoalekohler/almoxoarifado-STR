@@ -284,27 +284,15 @@ CPF: ${cpf.value}`
 
     try{
 
-        const resposta = await fetch(API,{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify({
-
-                id:idProduto.value,
-
-                tipo:tipo.value,
-
-                quantidade:qtd,
-
-                cpf:cpfLimpo
-
-            })
-
-        });
+fetch(API,{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+        ...
+    })
+})
 
         const retorno = await resposta.json();
 
