@@ -11,11 +11,11 @@ const parametros = new URLSearchParams(window.location.search);
 
 const idURL = parametros.get("id");
 
-if (idURL) {
+if(idURL){
 
-    codigo.value = idURL;
+    codigo.value=idURL;
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load",()=>{
 
         pesquisar();
 
@@ -178,5 +178,36 @@ window.addEventListener("load", () => {
 codigo.addEventListener("focus", () => {
 
     codigo.select();
+
+});
+
+
+// ===========================================
+// BOTÃO MOVIMENTAR
+// ===========================================
+
+const btnMovimentar = document.getElementById("btnMovimentar");
+
+if(btnMovimentar){
+
+    btnMovimentar.addEventListener("click",()=>{
+
+        window.location.href="movimentar.html";
+
+    });
+
+}
+
+// ===========================================
+// ENTER PARA PESQUISAR
+// ===========================================
+
+codigo.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Enter"){
+
+        pesquisar();
+
+    }
 
 });
