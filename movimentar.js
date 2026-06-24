@@ -171,3 +171,265 @@ async function buscarProduto(id){
     }
 
 }
+
+
+// ===========================================
+// REGISTRAR MOVIMENTAÇÃO
+// ===========================================
+
+btnRegistrar.addEventListener("click", registrarMovimentacao);
+
+async function registrarMovimentacao(){
+
+    esconderMensagem();
+
+    if(idProduto.value.trim() == ""){
+
+        mostrarMensagem(
+            "Leia o QR Code do produto.",
+            false
+        );
+
+        return;
+
+    }
+
+    const tipo = document.querySelector(
+        "input[name='tipo']:checked"
+    );
+
+    if(!tipo){
+
+        mostrarMensagem(
+            "Selecione Entrada ou Saída.",
+            false
+        );
+
+        return;
+
+    }
+
+    if(quantidade.value.trim() == ""){
+
+        mostrarMensagem(
+            "Informe a quantidade.",
+            false
+        );
+
+        return;
+
+    }
+
+    const qtd = Number(quantidade.value);
+
+    if(qtd <= 0){
+
+        mostrarMensagem(
+            "Quantidade inválida.",
+            false
+        );
+
+        return;
+
+    }
+
+    const estoque = Number(estoqueAtual.innerText);
+
+    if(tipo.value == "saida" && qtd > estoque){
+
+        mostrarMensagem(
+            "Estoque insuficiente.",
+            false
+        );
+
+        return;
+
+    }
+
+    const cpfLimpo = cpf.value.replace(/\D/g,"");
+
+    if(cpfLimpo.length != 11){
+
+        mostrarMensagem(
+            "CPF inválido.",
+            false
+        );
+
+        return;
+
+    }
+
+    if(!confirm(
+
+`Confirma esta movimentação?
+
+Produto: ${nomeProduto.innerText}
+
+Tipo: ${tipo.value.toUpperCase()}
+
+Quantidade: ${qtd}
+
+CPF: ${cpf.value}`
+
+    )){
+
+        return;
+
+    }
+
+    btnRegistrar.disabled = true;
+
+    btnRegistrar.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin"></i> Registrando...';
+
+    try{
+
+        const resposta = await fetch(API,{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                id:idProduto.value,
+
+                tipo:tipo.value,
+
+                quantidade:qtd,
+
+                cpf:cpfLimpo
+
+            })
+
+        });
+
+        const retorno = await resposta.json();
+
+        if(retorno.sucesso){
+
+            mostrarMensagem(
+
+                "Movimentação registrada com sucesso.",
+
+                true
+
+            );
+
+            limparFormulario();
+
+        }else{
+
+            mostrarMensagem(
+
+                retorno.mensagem,
+
+                false
+
+            );
+
+        }
+
+    }catch(e){
+
+        mostrarMensagem(
+
+            "Erro ao registrar movimentação.",
+
+            false
+
+        );
+
+    }
+
+    btnRegistrar.disabled = false;
+
+    btnRegistrar.innerHTML =
+    '<i class="fa-solid fa-floppy-disk"></i> Registrar Movimentação';
+
+}
+
+// ===========================================
+// LIMPAR FORMULÁRIO
+// ===========================================
+
+function limparFormulario(){
+
+    idProduto.value="";
+
+    nomeProduto.innerHTML="";
+
+    estoqueAtual.innerHTML="";
+
+    fotoProduto.src="";
+
+    quantidade.value="";
+
+    cpf.value="";
+
+    produtoBox.classList.add("hidden");
+
+    document
+    .querySelectorAll("input[name='tipo']")
+    .forEach(r=>r.checked=false);
+
+}
+
+// ===========================================
+// MENSAGENS
+// ===========================================
+
+function mostrarMensagem(texto,sucesso){
+
+    mensagem.classList.remove(
+        "hidden",
+        "sucesso",
+        "erro"
+    );
+
+    mensagem.classList.add(
+
+        sucesso
+        ? "sucesso"
+        : "erro"
+
+    );
+
+    mensagem.innerHTML=texto;
+
+}
+
+function esconderMensagem(){
+
+    mensagem.classList.add("hidden");
+
+}
+
+// ===========================================
+// MÁSCARA CPF
+// ===========================================
+
+cpf.addEventListener("input",()=>{
+
+    let valor = cpf.value.replace(/\D/g,"");
+
+    valor = valor.replace(
+        /(\d{3})(\d)/,
+        "$1.$2"
+    );
+
+    valor = valor.replace(
+        /(\d{3})(\d)/,
+        "$1.$2"
+    );
+
+    valor = valor.replace(
+        /(\d{3})(\d{1,2})$/,
+        "$1-$2"
+    );
+
+    cpf.value = valor;
+
+});
