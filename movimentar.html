@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Santa Rosa Malhas | Movimentar Estoque</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <link rel="icon" href="logo.png">
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<main class="container">
+
+    <div class="logo-area">
+
+        <img src="logo.png" class="logo">
+
+        <h1>Movimentar Estoque</h1>
+
+        <p>
+
+            Escaneie o QR Code do produto e registre uma movimentação.
+
+        </p>
+
+    </div>
+
+    <div class="menuSuperior">
+
+        <a href="index.html" class="botaoSecundario">
+
+            <i class="fa-solid fa-house"></i>
+
+            Consulta
+
+        </a>
+
+    </div>
+
+    <button
+        id="btnAbrirCamera"
+        class="btnCamera">
+
+        <i class="fa-solid fa-camera"></i>
+
+        Ler QR Code
+
+    </button>
+
+    <div
+        id="reader"
+        class="reader hidden">
+
+    </div>
+
+    <div class="campo">
+
+        <label>ID do Produto</label>
+
+        <input
+            id="idProduto"
+            type="text"
+            readonly>
+
+    </div>
+
+    <div
+        id="produtoBox"
+        class="produtoBox hidden">
+
+        <div class="fotoProduto">
+
+            <img
+                id="fotoProduto"
+                src=""
+                alt="Produto">
+
+        </div>
+
+        <div class="linha">
+
+            <span>Produto</span>
+
+            <strong id="nomeProduto"></strong>
+
+        </div>
+
+        <div class="linha">
+
+            <span>Estoque Atual</span>
+
+            <strong id="estoqueAtual"></strong>
+
+        </div>
+
+    </div>
+
+    <div class="campo">
+
+        <label>Tipo de Movimentação</label>
+
+        <div class="tipoMov">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="tipo"
+                    value="entrada">
+
+                Entrada
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="tipo"
+                    value="saida">
+
+                Saída
+
+            </label>
+
+        </div>
+
+    </div>
+
+    <div class="campo">
+
+        <label>Quantidade</label>
+
+        <input
+            id="quantidade"
+            type="number"
+            min="1"
+            placeholder="Informe a quantidade">
+
+    </div>
+
+    <div class="campo">
+
+        <label>CPF do Colaborador</label>
+
+        <input
+            id="cpf"
+            type="text"
+            maxlength="14"
+            placeholder="000.000.000-00">
+
+    </div>
+
+    <button
+        id="btnRegistrar">
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        Registrar Movimentação
+
+    </button>
+
+    <div
+        id="mensagem"
+        class="hidden">
+
+    </div>
+
+</main>
+
+<footer>
+
+    © <span id="ano"></span> Santa Rosa Malhas
+
+</footer>
+
+<script src="movimentar.js"></script>
+
+</body>
+
+</html>
