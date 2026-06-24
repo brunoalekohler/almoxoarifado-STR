@@ -279,63 +279,46 @@ CPF: ${cpf.value}`
 
     btnRegistrar.disabled = true;
 
-    btnRegistrar.innerHTML =
-    '<i class="fa-solid fa-spinner fa-spin"></i> Registrando...';
+try{
 
-    try{
+    const url =
+        API +
+        "?acao=movimentar" +
+        "&id=" + encodeURIComponent(idProduto.value) +
+        "&tipo=" + encodeURIComponent(tipo.value) +
+        "&quantidade=" + encodeURIComponent(qtd) +
+        "&cpf=" + encodeURIComponent(cpfLimpo);
 
-fetch(API,{
-    method:"POST",
-    headers:{
-        "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-        ...
-    })
-})
+    const resposta = await fetch(url);
 
-        const retorno = await resposta.json();
+    const retorno = await resposta.json();
 
-        if(retorno.sucesso){
-
-            mostrarMensagem(
-
-                "Movimentação registrada com sucesso.",
-
-                true
-
-            );
-
-            limparFormulario();
-
-        }else{
-
-            mostrarMensagem(
-
-                retorno.mensagem,
-
-                false
-
-            );
-
-        }
-
-    }catch(e){
+    if(retorno.sucesso){
 
         mostrarMensagem(
+            "Movimentação registrada com sucesso.",
+            true
+        );
 
-            "Erro ao registrar movimentação.",
+        limparFormulario();
 
+    }else{
+
+        mostrarMensagem(
+            retorno.mensagem,
             false
-
         );
 
     }
 
-    btnRegistrar.disabled = false;
+}catch(e){
 
-    btnRegistrar.innerHTML =
-    '<i class="fa-solid fa-floppy-disk"></i> Registrar Movimentação';
+    console.error(e);
+
+    mostrarMensagem(
+        "Erro ao registrar movimentação.",
+        false
+    );
 
 }
 
