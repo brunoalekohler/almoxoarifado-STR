@@ -71,6 +71,12 @@ function abrirCamera(){
 
 function qrLido(texto){
 
+    const beep = new Audio(
+    "https://www.soundjay.com/buttons/sounds/beep-07a.mp3"
+    );
+
+    beep.play();
+
     scanner.clear();
 
     reader.classList.add("hidden");
