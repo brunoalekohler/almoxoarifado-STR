@@ -5,7 +5,7 @@
 
 // URL do seu Apps Script
 const API =
-"https://script.google.com/macros/s/AKfycbzZGoiXDhzDPprGeBcCcGZ1yKRL11YNYXuNdNM9a42hHoeKxPATYDlhgFhxPGZ6eHBH/exec";
+"https://script.google.com/macros/s/AKfycbzouh_pD3vLSwT7IqVCOo1cchorlBeWo_2eqI2h-5rfbrgGp6q-of-Rxr94m4hUPvCK/exec";
 
 // Elementos
 const btnCamera = document.getElementById("btnAbrirCamera");
