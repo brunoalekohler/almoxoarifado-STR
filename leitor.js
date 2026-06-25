@@ -1,6 +1,17 @@
 function sucesso(texto){
 
-    window.location.href = texto;
+    const audio = new Audio("sons/bip.mp3");
+    audio.play();
+
+    if(navigator.vibrate){
+        navigator.vibrate(200);
+    }
+
+    setTimeout(() => {
+
+        window.location.href = texto;
+
+    }, 150);
 
 }
 
