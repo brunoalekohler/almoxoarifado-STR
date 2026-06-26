@@ -30,6 +30,12 @@ const mensagem = document.getElementById("mensagem");
 
 const btnRegistrar = document.getElementById("btnRegistrar");
 
+const valorUnitario =
+document.getElementById("valorUnitario");
+
+const grupoValor =
+document.getElementById("grupoValor");
+
 document.getElementById("ano").innerHTML =
 new Date().getFullYear();
 
