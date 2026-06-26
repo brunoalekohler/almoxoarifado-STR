@@ -5,7 +5,7 @@
 
 // URL do seu Apps Script
 const API =
-"https://script.google.com/macros/s/AKfycbzouh_pD3vLSwT7IqVCOo1cchorlBeWo_2eqI2h-5rfbrgGp6q-of-Rxr94m4hUPvCK/exec";
+"https://script.google.com/macros/s/AKfycbxiI4LVnn5cMjpsHy3ciTMJLKhR6qPbwrtcRJxZjvRIK92xD6WNYC6J9BupGIdXkhQU/exec";
 
 // Elementos
 const btnCamera = document.getElementById("btnAbrirCamera");
@@ -40,6 +40,32 @@ document.getElementById("ano").innerHTML =
 new Date().getFullYear();
 
 let scanner;
+
+// ===========================================
+// VALOR UNITÁRIO APENAS PARA ENTRADA
+// ===========================================
+
+document
+.querySelectorAll("input[name='tipo']")
+.forEach(r=>{
+
+    r.addEventListener("change",()=>{
+
+        if(r.checked && r.value==="entrada"){
+
+            grupoValor.classList.remove("hidden");
+
+        }else{
+
+            grupoValor.classList.add("hidden");
+
+            valorUnitario.value="";
+
+        }
+
+    });
+
+});
 
 // ===========================================
 // ABRIR CAMERA
@@ -235,6 +261,39 @@ async function registrarMovimentacao(){
 
     const qtd = Number(quantidade.value);
 
+    let valor = 0;
+
+        if(tipo.value==="entrada"){
+        
+            if(valorUnitario.value.trim()==""){
+        
+                mostrarMensagem(
+                    "Informe o valor unitário.",
+                    false
+                );
+        
+                return;
+        
+            }
+        
+            valor = Number(
+                valorUnitario.value
+                .replace(",",".")
+            );
+        
+            if(isNaN(valor) || valor<=0){
+        
+                mostrarMensagem(
+                    "Valor unitário inválido.",
+                    false
+                );
+        
+                return;
+        
+            }
+        
+        }
+
     if(qtd <= 0){
 
         mostrarMensagem(
@@ -272,7 +331,7 @@ async function registrarMovimentacao(){
 
     }
 
-    if(!confirm(
+let mensagemConfirmacao =
 
 `Confirma esta movimentação?
 
@@ -281,14 +340,25 @@ Produto: ${nomeProduto.innerText}
 Tipo: ${tipo.value.toUpperCase()}
 
 Quantidade: ${qtd}
+`;
 
-CPF: ${cpf.value}`
+if(tipo.value==="entrada"){
 
-    )){
+    mensagemConfirmacao +=
+`Valor Unitário: R$ ${valor.toFixed(2).replace(".",",")}
 
-        return;
+`;
 
-    }
+}
+
+mensagemConfirmacao +=
+`CPF: ${cpf.value}`;
+
+if(!confirm(mensagemConfirmacao)){
+
+    return;
+
+}
 
     btnRegistrar.disabled = true;
 
@@ -300,7 +370,8 @@ try{
         "&id=" + encodeURIComponent(idProduto.value) +
         "&tipo=" + encodeURIComponent(tipo.value) +
         "&quantidade=" + encodeURIComponent(qtd) +
-        "&cpf=" + encodeURIComponent(cpfLimpo);
+        "&cpf=" + encodeURIComponent(cpfLimpo) +
+        "&valor=" + encodeURIComponent(valor);
 
     const resposta = await fetch(url);
 
@@ -357,6 +428,10 @@ function limparFormulario(){
     fotoProduto.src="";
 
     quantidade.value="";
+
+    valorUnitario.value="";
+
+    grupoValor.classList.add("hidden");
 
     cpf.value="";
 
