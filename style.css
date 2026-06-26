@@ -176,6 +176,10 @@ body{
 
 }
 
+#grupoValor{
+    margin-top:20px;
+}
+
 .input-area input{
 
     width:100%;
